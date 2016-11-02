@@ -22,7 +22,7 @@
 class Mesh : public Object
 {
 private:
-    GLuint VBO, VAO, EBO;
+    GLuint vbo, vao, ebo;
     
     GLenum m_rendering_mode;
     
@@ -41,28 +41,28 @@ public:
     Mesh() {
         m_rendering_mode = GL_TRIANGLES;
                 
-        EBO = 0;
+        ebo = 0;
         m_number_of_indices = 0;
         m_number_of_instances = 0;
     }
     
     ~Mesh() {
-        deleteMesh();
+        delete_mesh();
     }
     
     void initialize(std::vector<GLfloat> vertices, std::vector<unsigned int> attributes, std::vector<GLuint> indices);
     void initialize(std::vector<GLfloat> vertices, std::vector<unsigned int> attributes);
-    void setMaterial(std::shared_ptr<Material> material);
-    void setRenderingMode(GLenum rendering_mode);
-    void setNumberOfInstances(unsigned int number_of_instances);
+    void set_material(std::shared_ptr<Material> material);
+    void set_rendering_mode(GLenum rendering_mode);
+    void set_number_of_instances(unsigned int number_of_instances);
     
-    GLuint getVertexBufferObject();
+    GLuint get_vertex_buffer_object();
     std::shared_ptr<Material> get_material();
     unsigned int get_number_of_instances();
     
     void draw(std::shared_ptr<Camera> camera);
     
-    void deleteMesh();
+    void delete_mesh();
 };
 
 #endif /* Mesh_hpp */

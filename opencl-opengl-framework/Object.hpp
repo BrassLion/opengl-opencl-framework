@@ -22,32 +22,32 @@ class Object : public std::enable_shared_from_this<Object>
 {
 protected:
     
-    glm::vec3 position;
-    glm::quat orientation;
-    glm::vec3 scale = glm::vec3(1.0f);;
+    glm::vec3 m_position;
+    glm::quat m_orientation;
+    glm::vec3 m_scale = glm::vec3(1.0f);;
     
-    glm::mat4 modelMatrix;
+    glm::mat4 m_model_matrix;
     
-    std::weak_ptr<Object> parent;
+    std::weak_ptr<Object> m_parent;
     std::vector<std::shared_ptr<Object>> m_children;
     
-    virtual void updateModelMatrix();
+    virtual void update_model_matrix();
     
 public:
     
-    void setPosition(glm::vec3 newPosition);
-    glm::vec3 getPosition();
+    void set_position(glm::vec3 new_position);
+    glm::vec3 get_position();
     
-    void setOrientation(glm::quat newOrientation);
-    glm::quat getOrientation();
+    void set_orientation(glm::quat new_orientation);
+    glm::quat get_orientation();
     
-    void setScale(glm::vec3 newScale);
+    void set_scale(glm::vec3 new_scale);
     
-    glm::mat4 getModelMatrix();
+    glm::mat4 get_model_matrix();
     
-    void addChild(std::shared_ptr<Object> child);
+    void add_child(std::shared_ptr<Object> child);
     
-    void setParent(std::shared_ptr<Object> parent);
+    void set_parent(std::shared_ptr<Object> parent);
     
     virtual void draw(std::shared_ptr<Camera> camera);
 };

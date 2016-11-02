@@ -28,7 +28,7 @@ utility::check_opencl_error(error, __FILE__, __LINE__);
 namespace utility
 {
     std::ifstream get_file_stream(std::string file_path);
-    std::string loadFile(std::string filePath);
+    std::string load_file(std::string file_path);
     
     template<typename T>
     std::vector<T> load_file_to_values(std::string file_path)

@@ -10,17 +10,17 @@
 
 #include <GLFW/glfw3.h>
 
-void Viewport::draw(std::shared_ptr<Object> rootNode)
+void Viewport::draw(std::shared_ptr<Object> root_node)
 {
     glViewport(m_x, m_y, m_width, m_height);
     
     for(std::shared_ptr<Camera> camera : m_cameras) {
         
-        rootNode->draw(camera);
+        root_node->draw(camera);
     }
 }
 
-void Viewport::addCamera(std::shared_ptr<Camera> camera)
+void Viewport::add_camera(std::shared_ptr<Camera> camera)
 {
     m_cameras.push_back(camera);
 }

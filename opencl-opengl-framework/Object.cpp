@@ -13,71 +13,71 @@
 
 #include <iostream>
 
-void Object::setPosition(glm::vec3 newPosition)
+void Object::set_position(glm::vec3 new_position)
 {
-    position = newPosition;
+    m_position = new_position;
     
-    updateModelMatrix();
+    update_model_matrix();
 }
 
-glm::vec3 Object::getPosition()
+glm::vec3 Object::get_position()
 {
-    return position;
+    return m_position;
 }
 
-void Object::setOrientation(glm::quat newOrientation)
+void Object::set_orientation(glm::quat new_orientation)
 {
-    orientation = newOrientation;
+    m_orientation = new_orientation;
         
-    updateModelMatrix();
+    update_model_matrix();
 }
 
-glm::quat Object::getOrientation()
+glm::quat Object::get_orientation()
 {
-    return orientation;
+    return m_orientation;
 }
 
-void Object::setScale(glm::vec3 newScale)
+void Object::set_scale(glm::vec3 new_scale)
 {
-    scale = newScale;
+    m_scale = new_scale;
     
-    updateModelMatrix();
+    update_model_matrix();
 }
 
-glm::mat4 Object::getModelMatrix()
+glm::mat4 Object::get_model_matrix()
 {
-    return modelMatrix;
+    return m_model_matrix;
 }
 
-void Object::updateModelMatrix()
+void Object::update_model_matrix()
 {
-    modelMatrix = glm::mat4(1.0f);
+    m_model_matrix = glm::mat4(1.0f);
     
-    modelMatrix = glm::translate(modelMatrix, position);
-    modelMatrix = modelMatrix * glm::mat4_cast(orientation);
-    modelMatrix = glm::scale(modelMatrix, scale);
+    m_model_matrix = glm::translate(m_model_matrix, m_position);
+    m_model_matrix = m_model_matrix * glm::mat4_cast(m_orientation);
+    m_model_matrix = glm::scale(m_model_matrix, m_scale);
     
-    if(!parent.expired())
+    if (!m_parent.expired())
     {
-        modelMatrix = parent.lock()->getModelMatrix() * modelMatrix;
+        m_model_matrix = m_parent.lock()->get_model_matrix() * m_model_matrix;
     }
     
-    for(std::shared_ptr<Object> child : m_children)
-        child->updateModelMatrix();
+    for (std::shared_ptr<Object> child : m_children)
+        child->update_model_matrix();
 }
 
-void Object::setParent(std::shared_ptr<Object> newParent)
+void Object::set_parent(std::shared_ptr<Object> parent)
 {
-    parent = newParent;
+    m_parent = parent;
 }
 
-void Object::addChild(std::shared_ptr<Object> child)
+void Object::add_child(std::shared_ptr<Object> child)
 {
     m_children.push_back(child);
     
-    child->setParent(shared_from_this());
+    child->set_parent(shared_from_this());
     
-    child->updateModelMatrix();
+    child->update_model_matrix();
 }
 
 void Object::draw(std::shared_ptr<Camera> camera)

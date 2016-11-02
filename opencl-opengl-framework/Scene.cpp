@@ -20,15 +20,15 @@
 void Scene::initialize(nanogui::Screen *gui_screen)
 {
     // Setup scene.    
-    std::shared_ptr<Shader> triangleShader(new Shader());
+    std::shared_ptr<Shader> triangle_shader(new Shader());
     
-    triangleShader->setShader("./Shaders/triangle.vert", GL_VERTEX_SHADER);
-    triangleShader->setShader("./Shaders/triangle.frag", GL_FRAGMENT_SHADER);
-    triangleShader->initialize();
+    triangle_shader->set_shader("./Shaders/triangle.vert", GL_VERTEX_SHADER);
+    triangle_shader->set_shader("./Shaders/triangle.frag", GL_FRAGMENT_SHADER);
+    triangle_shader->initialize();
     
-    std::shared_ptr<Material> triangleMaterial( new Material(triangleShader) );
+    std::shared_ptr<Material> triangle_material( new Material(triangle_shader) );
     
-    std::shared_ptr<Mesh> triangleMesh(new Mesh());
+    std::shared_ptr<Mesh> triangle_mesh(new Mesh());
     
     std::vector<GLfloat> vertices = {
         // front
@@ -80,21 +80,21 @@ void Scene::initialize(nanogui::Screen *gui_screen)
     
     std::vector<unsigned int> attributes = {4, 2};
     
-    triangleMesh->initialize(vertices, attributes, indices);
-    triangleMesh->setMaterial(triangleMaterial);
-    triangleMesh->setPosition( glm::vec3(0.0f,0.0f,0.0f) );
-    triangleMesh->setScale( glm::vec3(1.0f,1.0f,1.0f) );
+    triangle_mesh->initialize(vertices, attributes, indices);
+    triangle_mesh->set_material(triangle_material);
+    triangle_mesh->set_position( glm::vec3(0.0f,0.0f,0.0f) );
+    triangle_mesh->set_scale( glm::vec3(1.0f,1.0f,1.0f) );
     
-    rootNode->addChild(triangleMesh);
+    m_root_node->add_child(triangle_mesh);
     
     // Reload shader when it's files are changed.
-    shaderReloader = std::unique_ptr<ShaderReloader>( new ShaderReloader() );
+    m_shader_reloader = std::unique_ptr<ShaderReloader>( new ShaderReloader() );
     
-    shaderReloader->addFilesToWatch([=]{
+    m_shader_reloader->add_files_to_watch([=]{
         
-        renderer->queueFunctionBeforeRender([triangleShader] {
-            triangleShader->deleteShader();
-            triangleShader->initialize();
+        m_renderer->queue_function_before_render([triangle_shader] {
+            triangle_shader->delete_shader();
+            triangle_shader->initialize();
         });
     },
                                     "./Shaders/triangle.frag",
@@ -104,7 +104,7 @@ void Scene::initialize(nanogui::Screen *gui_screen)
 
 void Scene::draw()
 {
-    renderer->draw(rootNode);
+    m_renderer->draw(m_root_node);
 }
 
 void Scene::mouse_button_callback(int button, int action, int modifiers)
@@ -113,7 +113,7 @@ void Scene::mouse_button_callback(int button, int action, int modifiers)
         
         if(action == GLFW_PRESS) {
             is_mouse_down = true;
-            firstMouse = true;
+            first_mouse = true;
         }
         
         else
@@ -126,11 +126,11 @@ void Scene::mouse_callback(double xpos, double ypos)
     // Rotate scene
     if(is_mouse_down) {
     
-        if(firstMouse)
+        if(first_mouse)
         {
             lastX = xpos;
             lastY = ypos;
-            firstMouse = false;
+            first_mouse = false;
         }
         
         GLfloat xoffset = xpos - lastX;
@@ -139,38 +139,38 @@ void Scene::mouse_callback(double xpos, double ypos)
         lastX = xpos;
         lastY = ypos;
         
-        cameraContainer->setOrientation( cameraContainer->getOrientation() * glm::angleAxis(0.05f * xoffset, glm::vec3(0.0f, 1.0f, 0.0f)) );
-        cameraContainer->setOrientation( cameraContainer->getOrientation() * glm::angleAxis(0.05f * yoffset, glm::vec3(1.0f, 0.0f, 0.0f)) );
+        m_camera_container->set_orientation( m_camera_container->get_orientation() * glm::angleAxis(0.05f * xoffset, glm::vec3(0.0f, 1.0f, 0.0f)) );
+        m_camera_container->set_orientation( m_camera_container->get_orientation() * glm::angleAxis(0.05f * yoffset, glm::vec3(1.0f, 0.0f, 0.0f)) );
     }
 }
 
 void Scene::scroll_callback(double xoffset, double yoffset)
 {
-    glm::vec3 new_camera_position = camera->getPosition() + glm::vec3(0.0f, 0.0f, yoffset);
+    glm::vec3 new_camera_position = m_camera->get_position() + glm::vec3(0.0f, 0.0f, yoffset);
     
-    if(new_camera_position.z < 5.0f)
+    if (new_camera_position.z < 5.0f)
         new_camera_position.z = 5.0f;
     
-    if(new_camera_position.z > 200.0f)
+    if (new_camera_position.z > 200.0f)
         new_camera_position.z = 200.0f;
     
-    camera->setPosition( new_camera_position );
+    m_camera->set_position( new_camera_position );
 }
 
 void Scene::key_callback(int key, int action)
 {
-    if(key == GLFW_KEY_UP && action != GLFW_RELEASE)
-        cameraContainer->setOrientation( cameraContainer->getOrientation() * glm::angleAxis(0.5f, glm::vec3(1.0f, 0.0f, 0.0f)) );
+    if (key == GLFW_KEY_UP && action != GLFW_RELEASE)
+        m_camera_container->set_orientation( m_camera_container->get_orientation() * glm::angleAxis(0.5f, glm::vec3(1.0f, 0.0f, 0.0f)) );
     
-    else if(key == GLFW_KEY_DOWN && action != GLFW_RELEASE)
-        cameraContainer->setOrientation( cameraContainer->getOrientation() * glm::angleAxis(0.5f, glm::vec3(-1.0f, 0.0f, 0.0f)) );
+    else if (key == GLFW_KEY_DOWN && action != GLFW_RELEASE)
+        m_camera_container->set_orientation( m_camera_container->get_orientation() * glm::angleAxis(0.5f, glm::vec3(-1.0f, 0.0f, 0.0f)) );
     
-    else if(key == GLFW_KEY_RIGHT && action != GLFW_RELEASE)
-        cameraContainer->setOrientation( cameraContainer->getOrientation() * glm::angleAxis(0.5f, glm::vec3(0.0f, 1.0f, 0.0f)) );
+    else if (key == GLFW_KEY_RIGHT && action != GLFW_RELEASE)
+        m_camera_container->set_orientation( m_camera_container->get_orientation() * glm::angleAxis(0.5f, glm::vec3(0.0f, 1.0f, 0.0f)) );
     
-    else if(key == GLFW_KEY_LEFT && action != GLFW_RELEASE)
-        cameraContainer->setOrientation( cameraContainer->getOrientation() * glm::angleAxis(0.5f, glm::vec3(0.0f, -1.0f, 0.0f)) );
+    else if (key == GLFW_KEY_LEFT && action != GLFW_RELEASE)
+        m_camera_container->set_orientation( m_camera_container->get_orientation() * glm::angleAxis(0.5f, glm::vec3(0.0f, -1.0f, 0.0f)) );
     
     else if(key == GLFW_KEY_R && action == GLFW_PRESS)
-        cameraContainer->setOrientation(glm::quat());
+        m_camera_container->set_orientation(glm::quat());
 }

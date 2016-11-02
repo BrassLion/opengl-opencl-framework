@@ -16,7 +16,7 @@
 
 #include "Utility.hpp"
 
-bool checkShaderError(GLuint shader)
+bool check_shader_error(GLuint shader)
 {
     GLint success;
     GLchar infoLog[512];
@@ -33,15 +33,15 @@ bool checkShaderError(GLuint shader)
     return true;
 }
 
-bool checkProgramError(GLuint program)
+bool check_program_error(GLuint program)
 {
     GLint success;
-    GLchar infoLog[512];
+    GLchar info_log[512];
     
     glGetProgramiv(program, GL_LINK_STATUS, &success);
     if (!success) {
-        glGetProgramInfoLog(program, 512, NULL, infoLog);
-        throw std::runtime_error(std::string("Program link error:\n") + infoLog);
+        glGetProgramInfoLog(program, 512, NULL, info_log);
+        throw std::runtime_error(std::string("Program link error:\n") + info_log);
         
         return false;
     }
@@ -49,28 +49,28 @@ bool checkProgramError(GLuint program)
     return true;
 }
 
-GLuint compileShader(std::string shaderPath, GLuint shaderType)
+GLuint compile_shader(std::string shader_path, GLuint shader_type)
 {
-    GLuint shader = glCreateShader(shaderType);
+    GLuint shader = glCreateShader(shader_type);
     
-    std::string shaderSourceString = utility::loadFile(shaderPath);
-    const char *shaderSource = shaderSourceString.c_str();
+    std::string shader_source_string = utility::load_file(shader_path);
+    const char *shader_source = shader_source_string.c_str();
     
-    glShaderSource(shader, 1, &shaderSource, NULL);
+    glShaderSource(shader, 1, &shader_source, NULL);
     glCompileShader(shader);
     
-    checkShaderError(shader);
+    check_shader_error(shader);
     
     return shader;
 }
 
 /// Public functions.
-void Shader::setShader(std::string shaderPath, GLuint shaderType)
+void Shader::set_shader(std::string shader_path, GLuint shader_type)
 {
     ShaderFile shader_file;
     
-    shader_file.path = shaderPath;
-    shader_file.type = shaderType;
+    shader_file.path = shader_path;
+    shader_file.type = shader_type;
     
     m_shader_files.push_back(shader_file);
 }
@@ -80,71 +80,71 @@ bool Shader::initialize()
     // Build and compile shaders.
     std::vector<GLuint> shaders;
     
-    for(ShaderFile shader_file : m_shader_files)
-        shaders.push_back(compileShader(shader_file.path, shader_file.type));
+    for (ShaderFile shader_file : m_shader_files)
+        shaders.push_back(compile_shader(shader_file.path, shader_file.type));
     
     // Build program.
-    programID = glCreateProgram();
+    m_program_id = glCreateProgram();
     
-    for(GLuint shader : shaders)
-        glAttachShader(programID, shader);
+    for (GLuint shader : shaders)
+        glAttachShader(m_program_id, shader);
     
-    glLinkProgram(programID);
+    glLinkProgram(m_program_id);
     
     // Check for linking errors.
-    checkProgramError(programID);
+    check_program_error(m_program_id);
     
     // Delete shaders.
-    for(GLuint shader: shaders)
+    for (GLuint shader: shaders)
         glDeleteShader(shader);
     
     return true;
 }
 
-void Shader::deleteShader()
+void Shader::delete_shader()
 {
-    glDeleteShader(programID);
+    glDeleteShader(m_program_id);
 }
 
-void Shader::bindShader()
+void Shader::bind_shader()
 {
-    glUseProgram(programID);
+    glUseProgram(m_program_id);
 }
 
-GLint Shader::getUniformLocation(std::string uniform)
+GLint Shader::get_uniform_location(std::string uniform)
 {
-    GLint uniformLocation = glGetUniformLocation(programID, uniform.c_str());
+    GLint uniform_location = glGetUniformLocation(m_program_id, uniform.c_str());
     
-    if(uniformLocation == -1)
+    if(uniform_location == -1)
         throw std::invalid_argument( "Uniform \"" + uniform + "\" does not exist." );
     
-    return uniformLocation;
+    return uniform_location;
 }
 
-void Shader::setUniform(std::string uniform, glm::mat4 value)
+void Shader::set_uniform(std::string uniform, glm::mat4 value)
 {
-    GLint uniformLocation = getUniformLocation(uniform);
+    GLint uniformLocation = get_uniform_location(uniform);
     
     glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(value));
 }
 
-void Shader::setUniform(std::string uniform, glm::vec3 value)
+void Shader::set_uniform(std::string uniform, glm::vec3 value)
 {
-    GLint uniformLocation = getUniformLocation(uniform);
+    GLint uniformLocation = get_uniform_location(uniform);
     
     glUniform3fv(uniformLocation, 1, glm::value_ptr(value));
 }
 
-void Shader::setUniform(std::string uniform, glm::vec4 value)
+void Shader::set_uniform(std::string uniform, glm::vec4 value)
 {
-    GLint uniformLocation = getUniformLocation(uniform);
+    GLint uniformLocation = get_uniform_location(uniform);
     
     glUniform4fv(uniformLocation, 1, glm::value_ptr(value));
 }
 
-void Shader::setUniform(std::string uniform, unsigned int value)
+void Shader::set_uniform(std::string uniform, unsigned int value)
 {
-    GLint uniformLocation = getUniformLocation(uniform);
+    GLint uniformLocation = get_uniform_location(uniform);
     
     glUniform1i(uniformLocation, value);
 }

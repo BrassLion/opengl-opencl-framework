@@ -14,11 +14,11 @@ void Mesh::initialize(std::vector<GLfloat> vertices, std::vector<unsigned int> a
 {
     initialize(vertices, attributes);
     
-    glGenBuffers(1, &EBO);
+    glGenBuffers(1, &ebo);
     
-    glBindVertexArray(VAO);
+    glBindVertexArray(vao);
     
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indices.size(), indices.data(), GL_STATIC_DRAW);
     
     glBindVertexArray(0);
@@ -29,13 +29,13 @@ void Mesh::initialize(std::vector<GLfloat> vertices, std::vector<unsigned int> a
 
 void Mesh::initialize(std::vector<GLfloat> vertices, std::vector<unsigned int> attributes)
 {
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
+    glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
 
     // Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
-    glBindVertexArray(VAO);
+    glBindVertexArray(vao);
     
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
     
     // Assign vertex attributes.
@@ -61,21 +61,21 @@ void Mesh::initialize(std::vector<GLfloat> vertices, std::vector<unsigned int> a
     set_drawing_function();
 }
 
-void Mesh::setMaterial(std::shared_ptr<Material> material)
+void Mesh::set_material(std::shared_ptr<Material> material)
 {
     m_material = material;
     
     material->set_mesh(std::static_pointer_cast<Mesh>(shared_from_this()));			
 }
 
-void Mesh::setRenderingMode(GLenum rendering_mode)
+void Mesh::set_rendering_mode(GLenum rendering_mode)
 {
     m_rendering_mode = rendering_mode;
     
     set_drawing_function();
 }
 
-void Mesh::setNumberOfInstances(unsigned int number_of_instances)
+void Mesh::set_number_of_instances(unsigned int number_of_instances)
 {
     m_number_of_instances = number_of_instances;
     
@@ -97,9 +97,9 @@ void Mesh::set_drawing_function()
         m_draw = [=] { glDrawElements( m_rendering_mode, m_number_of_indices, GL_UNSIGNED_INT, 0); };
 }
 
-GLuint Mesh::getVertexBufferObject()
+GLuint Mesh::get_vertex_buffer_object()
 {
-    return VBO;
+    return vbo;
 }
 
 std::shared_ptr<Material> Mesh::get_material()
@@ -116,7 +116,7 @@ void Mesh::draw(std::shared_ptr<Camera> camera)
 {
     m_material->apply(shared_from_this(), camera);
     
-    glBindVertexArray(VAO);
+    glBindVertexArray(vao);
     
     m_draw();
     
@@ -125,9 +125,9 @@ void Mesh::draw(std::shared_ptr<Camera> camera)
     Object::draw(camera);
 }
 
-void Mesh::deleteMesh()
+void Mesh::delete_mesh()
 {
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(1, &vbo);
+    glDeleteBuffers(1, &ebo);
 }

@@ -25,9 +25,9 @@ private:
     std::vector<std::function<void ()>> m_prerender_functions;
 public:
     
-    void draw(std::shared_ptr<Object> rootNode);
-    void addViewport(std::shared_ptr<Viewport> viewport);
-    void queueFunctionBeforeRender(std::function<void()> func);
+    void draw(std::shared_ptr<Object> root_node);
+    void add_viewport(std::shared_ptr<Viewport> viewport);
+    void queue_function_before_render(std::function<void()> func);
 };
 
 #endif /* Renderer_hpp */

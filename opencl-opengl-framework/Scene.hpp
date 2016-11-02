@@ -20,42 +20,42 @@ class Scene {
     
 private:
     
-    std::shared_ptr<Camera> camera;
-    std::shared_ptr<Object> cameraContainer;
+    std::shared_ptr<Camera> m_camera;
+    std::shared_ptr<Object> m_camera_container;
     
     // Mouse variables.
     float lastX = 400, lastY = 300;
-    bool firstMouse = true;
+    bool first_mouse = true;
     bool is_mouse_down = false;
     
 protected:
         
-    std::unique_ptr<ShaderReloader> shaderReloader;
-    std::unique_ptr<Renderer> renderer;
-    std::shared_ptr<Object> rootNode;
+    std::unique_ptr<ShaderReloader> m_shader_reloader;
+    std::unique_ptr<Renderer> m_renderer;
+    std::shared_ptr<Object> m_root_node;
 
 public:
     
     Scene(int width, int height) {
         
-        shaderReloader = std::unique_ptr<ShaderReloader>( new ShaderReloader() );
-        renderer = std::unique_ptr<Renderer>(new Renderer());
-        rootNode = std::shared_ptr<Object>(new Object());
+        m_shader_reloader = std::unique_ptr<ShaderReloader>( new ShaderReloader() );
+        m_renderer = std::unique_ptr<Renderer>(new Renderer());
+        m_root_node = std::shared_ptr<Object>(new Object());
         
         // Camera variables.
-        camera = std::shared_ptr<Camera>(new Camera(glm::radians(60.0f), (float)width, (float)height, 0.1f, 1000.0f));
+        m_camera = std::shared_ptr<Camera>(new Camera(glm::radians(60.0f), (float)width, (float)height, 0.1f, 1000.0f));
         
         // Setup viewport
         std::shared_ptr<Viewport> viewport(new Viewport(0, 0, width, height));
-        viewport->addCamera(camera);
+        viewport->add_camera(m_camera);
         
-        renderer->addViewport(viewport);
+        m_renderer->add_viewport(viewport);
         
-        cameraContainer = std::shared_ptr<Object>(new Object());
+        m_camera_container = std::shared_ptr<Object>(new Object());
         
-        cameraContainer->addChild(camera);
+        m_camera_container->add_child(m_camera);
         
-        camera->setPosition(glm::vec3(0.0f,0.0f,10.0f));
+        m_camera->set_position(glm::vec3(0.0f,0.0f,10.0f));
     }
     
     ~Scene() {};

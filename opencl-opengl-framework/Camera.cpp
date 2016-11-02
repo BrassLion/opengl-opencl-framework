@@ -10,19 +10,19 @@
 
 #include "Camera.hpp"
 
-glm::mat4 Camera::getProjectionMatrix()
+glm::mat4 Camera::get_projection_matrix()
 {
-    return projection;
+    return m_projection;
 }
 
-glm::mat4 Camera::getViewMatrix()
+glm::mat4 Camera::get_view_matrix()
 {
-    return view;
+    return m_view;
 }
 
-void Camera::updateModelMatrix()
+void Camera::update_model_matrix()
 {
-    Object::updateModelMatrix();
+    Object::update_model_matrix();
     
-    view = glm::inverse(modelMatrix);
+    m_view = glm::inverse(m_model_matrix);
 }

@@ -37,8 +37,8 @@ public:
         m_height = height;
     }
     
-    void draw(std::shared_ptr<Object> rootNode);
-    void addCamera(std::shared_ptr<Camera> camera);
+    void draw(std::shared_ptr<Object> root_node);
+    void add_camera(std::shared_ptr<Camera> camera);
 };
 
 #endif /* Viewport_hpp */

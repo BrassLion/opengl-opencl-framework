@@ -20,7 +20,7 @@ class Shader
 {
 private:
     
-    GLuint programID;
+    GLuint m_program_id;
     
     struct ShaderFile {
         std::string path;
@@ -29,23 +29,23 @@ private:
 
     std::vector<ShaderFile> m_shader_files;
     
-    GLint getUniformLocation(std::string uniform);
+    GLint get_uniform_location(std::string uniform);
     
 public:
     
     ~Shader() {
-        deleteShader();
+        delete_shader();
     }
     
     bool initialize();
-    void deleteShader();
-    void setShader(std::string shaderPath,  GLuint shaderType);
-    void bindShader();
+    void delete_shader();
+    void set_shader(std::string shader_path,  GLuint shader_type);
+    void bind_shader();
     
-    void setUniform(std::string uniform, glm::mat4 value);
-    void setUniform(std::string uniform, glm::vec3 value);
-    void setUniform(std::string uniform, glm::vec4 value);
-    void setUniform(std::string uniform, unsigned int value);
+    void set_uniform(std::string uniform, glm::mat4 value);
+    void set_uniform(std::string uniform, glm::vec3 value);
+    void set_uniform(std::string uniform, glm::vec4 value);
+    void set_uniform(std::string uniform, unsigned int value);
 };
 
 #endif /* Shader_hpp */

@@ -22,9 +22,9 @@ namespace utility
         return ifs;
     }
     
-    std::string loadFile(std::string filePath)
+    std::string load_file(std::string file_path)
     {
-        std::ifstream ifs = get_file_stream(filePath);
+        std::ifstream ifs = get_file_stream(file_path);
         
         std::string content( (std::istreambuf_iterator<char>(ifs) ),
                             (std::istreambuf_iterator<char>()    ) );

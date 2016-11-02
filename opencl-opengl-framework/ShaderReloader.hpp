@@ -20,11 +20,11 @@ class ShaderReloader
 {
 private:
     
-    std::thread monitoring_thread;
-    bool is_running;
-    std::condition_variable thread_conditional;
-    std::mutex thread_mutex;
-    std::timed_mutex deinit_mutex;
+    std::thread m_monitoring_thread;
+    bool m_is_running;
+    std::condition_variable m_thread_conditional;
+    std::mutex m_thread_mutex;
+    std::timed_mutex m_deinit_mutex;
     
     struct File {
         boost::filesystem::path path;
@@ -32,14 +32,12 @@ private:
         std::function<void()> callback;
     };
     
-    std::vector<std::shared_ptr<File>> watched_files;
+    std::vector<std::shared_ptr<File>> m_watched_files;
     
     void initialize();
     void deinitialize();
-    
-    void pollFiles();
-    
-    void addFilesToWatch(std::function<void ()> callback);
+        
+    void add_files_to_watch(std::function<void ()> callback);
 
 public:
     
@@ -54,21 +52,21 @@ public:
     };
         
     template<typename ... Args>
-	    void addFilesToWatch(std::function<void ()> callback, std::string filePath, Args ... args);
+	    void add_files_to_watch(std::function<void ()> callback, std::string file_path, Args ... args);
 };
 
 template<typename ... Args>
-inline void ShaderReloader::addFilesToWatch(std::function<void ()> callback, std::string filePath, Args ... args)
+inline void ShaderReloader::add_files_to_watch(std::function<void ()> callback, std::string file_path, Args ... args)
 {
     std::shared_ptr<File> file(new File());
     
-    file->path = boost::filesystem::path(filePath);
+    file->path = boost::filesystem::path(file_path);
     file->last_write_time = boost::filesystem::last_write_time(file->path);
     file->callback = callback;
     
-    watched_files.push_back(file);
+    m_watched_files.push_back(file);
     
-    addFilesToWatch(callback, args...);
+    add_files_to_watch(callback, args...);
 }
 
 
