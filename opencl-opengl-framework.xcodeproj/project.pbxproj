@@ -29,7 +29,34 @@
 		22B5CAC31DC94FD500F2500D /* Utility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 22B5CAAD1DC94FD500F2500D /* Utility.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		22B5CAC41DC94FD500F2500D /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CAAE1DC94FD500F2500D /* Viewport.cpp */; };
 		22B5CAC51DC94FD500F2500D /* Viewport.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 22B5CAAF1DC94FD500F2500D /* Viewport.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		22B5CB2F1DC9750F00F2500D /* testsMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CB131DC974B400F2500D /* testsMain.cpp */; };
+		22B5CB301DC9750F00F2500D /* testsMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CB141DC974B400F2500D /* testsMesh.cpp */; };
+		22B5CB311DC9750F00F2500D /* testsUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CB151DC974B400F2500D /* testsUtility.cpp */; };
+		22B5CB321DC975BA00F2500D /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CA9E1DC94FD500F2500D /* Mesh.cpp */; };
+		22B5CB331DC975BD00F2500D /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CAAC1DC94FD500F2500D /* Utility.cpp */; };
+		22B5CB341DC975C400F2500D /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CA9A1DC94FD500F2500D /* Camera.cpp */; };
+		22B5CB351DC975C600F2500D /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CA9C1DC94FD500F2500D /* Material.cpp */; };
+		22B5CB361DC975CA00F2500D /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CAA01DC94FD500F2500D /* Object.cpp */; };
+		22B5CB371DC975CD00F2500D /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CAA21DC94FD500F2500D /* Renderer.cpp */; };
+		22B5CB381DC975D000F2500D /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CAA41DC94FD500F2500D /* Scene.cpp */; };
+		22B5CB391DC975D400F2500D /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CAA61DC94FD500F2500D /* Shader.cpp */; };
+		22B5CB3A1DC975D600F2500D /* ShaderReloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CAA81DC94FD500F2500D /* ShaderReloader.cpp */; };
+		22B5CB3B1DC975D900F2500D /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CAAA1DC94FD500F2500D /* Texture.cpp */; };
+		22B5CB3C1DC975DD00F2500D /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5CAAE1DC94FD500F2500D /* Viewport.cpp */; };
+		22B5CB3F1DC9789100F2500D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B5CB3E1DC9789100F2500D /* OpenGL.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		22B5CB231DC974DF00F2500D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		22B5CA8C1DC94F6B00F2500D /* libopencl-opengl-framework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libopencl-opengl-framework.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +82,12 @@
 		22B5CAAD1DC94FD500F2500D /* Utility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utility.hpp; sourceTree = "<group>"; };
 		22B5CAAE1DC94FD500F2500D /* Viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Viewport.cpp; sourceTree = "<group>"; };
 		22B5CAAF1DC94FD500F2500D /* Viewport.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Viewport.hpp; sourceTree = "<group>"; };
+		22B5CB121DC974B400F2500D /* catch.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = catch.hh; sourceTree = "<group>"; };
+		22B5CB131DC974B400F2500D /* testsMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = testsMain.cpp; sourceTree = "<group>"; };
+		22B5CB141DC974B400F2500D /* testsMesh.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = testsMesh.cpp; sourceTree = "<group>"; };
+		22B5CB151DC974B400F2500D /* testsUtility.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = testsUtility.cpp; sourceTree = "<group>"; };
+		22B5CB251DC974DF00F2500D /* opengl-opencl-framework-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "opengl-opencl-framework-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
+		22B5CB3E1DC9789100F2500D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +98,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		22B5CB221DC974DF00F2500D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22B5CB3F1DC9789100F2500D /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -72,7 +113,9 @@
 			isa = PBXGroup;
 			children = (
 				22B5CA8E1DC94F6B00F2500D /* opencl-opengl-framework */,
+				22B5CB111DC974B400F2500D /* opencl-opengl-framework-tests */,
 				22B5CA8D1DC94F6B00F2500D /* Products */,
+				22B5CB3D1DC9789100F2500D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				22B5CA8C1DC94F6B00F2500D /* libopencl-opengl-framework.a */,
+				22B5CB251DC974DF00F2500D /* opengl-opencl-framework-tests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,6 +155,25 @@
 				22B5CAAF1DC94FD500F2500D /* Viewport.hpp */,
 			);
 			path = "opencl-opengl-framework";
+			sourceTree = "<group>";
+		};
+		22B5CB111DC974B400F2500D /* opencl-opengl-framework-tests */ = {
+			isa = PBXGroup;
+			children = (
+				22B5CB121DC974B400F2500D /* catch.hh */,
+				22B5CB131DC974B400F2500D /* testsMain.cpp */,
+				22B5CB141DC974B400F2500D /* testsMesh.cpp */,
+				22B5CB151DC974B400F2500D /* testsUtility.cpp */,
+			);
+			path = "opencl-opengl-framework-tests";
+			sourceTree = "<group>";
+		};
+		22B5CB3D1DC9789100F2500D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				22B5CB3E1DC9789100F2500D /* OpenGL.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,16 +217,39 @@
 			productReference = 22B5CA8C1DC94F6B00F2500D /* libopencl-opengl-framework.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		22B5CB241DC974DF00F2500D /* opengl-opencl-framework-tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22B5CB291DC974DF00F2500D /* Build configuration list for PBXNativeTarget "opengl-opencl-framework-tests" */;
+			buildPhases = (
+				22B5CB211DC974DF00F2500D /* Sources */,
+				22B5CB221DC974DF00F2500D /* Frameworks */,
+				22B5CB231DC974DF00F2500D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "opengl-opencl-framework-tests";
+			productName = "opengl-opencl-framework-tests";
+			productReference = 22B5CB251DC974DF00F2500D /* opengl-opencl-framework-tests */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		22B5CA841DC94F6B00F2500D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Samuel Hall";
 				TargetAttributes = {
 					22B5CA8B1DC94F6B00F2500D = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = TYZ6WNTDC7;
+						ProvisioningStyle = Automatic;
+					};
+					22B5CB241DC974DF00F2500D = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = TYZ6WNTDC7;
 						ProvisioningStyle = Automatic;
@@ -183,6 +269,7 @@
 			projectRoot = "";
 			targets = (
 				22B5CA8B1DC94F6B00F2500D /* opencl-opengl-framework */,
+				22B5CB241DC974DF00F2500D /* opengl-opencl-framework-tests */,
 			);
 		};
 /* End PBXProject section */
@@ -203,6 +290,27 @@
 				22B5CABC1DC94FD500F2500D /* Shader.cpp in Sources */,
 				22B5CAB61DC94FD500F2500D /* Object.cpp in Sources */,
 				22B5CAB01DC94FD500F2500D /* Camera.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22B5CB211DC974DF00F2500D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22B5CB371DC975CD00F2500D /* Renderer.cpp in Sources */,
+				22B5CB311DC9750F00F2500D /* testsUtility.cpp in Sources */,
+				22B5CB351DC975C600F2500D /* Material.cpp in Sources */,
+				22B5CB361DC975CA00F2500D /* Object.cpp in Sources */,
+				22B5CB3A1DC975D600F2500D /* ShaderReloader.cpp in Sources */,
+				22B5CB3B1DC975D900F2500D /* Texture.cpp in Sources */,
+				22B5CB2F1DC9750F00F2500D /* testsMain.cpp in Sources */,
+				22B5CB3C1DC975DD00F2500D /* Viewport.cpp in Sources */,
+				22B5CB331DC975BD00F2500D /* Utility.cpp in Sources */,
+				22B5CB321DC975BA00F2500D /* Mesh.cpp in Sources */,
+				22B5CB391DC975D400F2500D /* Shader.cpp in Sources */,
+				22B5CB341DC975C400F2500D /* Camera.cpp in Sources */,
+				22B5CB381DC975D000F2500D /* Scene.cpp in Sources */,
+				22B5CB301DC9750F00F2500D /* testsMesh.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +357,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -290,6 +399,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -328,6 +438,47 @@
 			};
 			name = Release;
 		};
+		22B5CB2A1DC974DF00F2500D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				DEVELOPMENT_TEAM = TYZ6WNTDC7;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/include/eigen3,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-lboost_filesystem",
+					"-lglew",
+					"-lboost_system",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		22B5CB2B1DC974DF00F2500D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				DEVELOPMENT_TEAM = TYZ6WNTDC7;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/include/eigen3,
+				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-lboost_filesystem",
+					"-lglew",
+					"-lboost_system",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -348,6 +499,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		22B5CB291DC974DF00F2500D /* Build configuration list for PBXNativeTarget "opengl-opencl-framework-tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22B5CB2A1DC974DF00F2500D /* Debug */,
+				22B5CB2B1DC974DF00F2500D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
