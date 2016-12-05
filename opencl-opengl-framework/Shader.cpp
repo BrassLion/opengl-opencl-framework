@@ -49,12 +49,11 @@ bool check_program_error(GLuint program)
     return true;
 }
 
-GLuint compile_shader(std::string shader_path, GLuint shader_type)
+GLuint compile_shader(std::string shader_src, GLuint shader_type)
 {
     GLuint shader = glCreateShader(shader_type);
     
-    std::string shader_source_string = utility::load_file(shader_path);
-    const char *shader_source = shader_source_string.c_str();
+    const char *shader_source = shader_src.c_str();
     
     glShaderSource(shader, 1, &shader_source, NULL);
     glCompileShader(shader);
@@ -67,9 +66,16 @@ GLuint compile_shader(std::string shader_path, GLuint shader_type)
 /// Public functions.
 void Shader::set_shader(std::string shader_path, GLuint shader_type)
 {
-    ShaderFile shader_file;
+    std::string shader_src = utility::load_file(shader_path);
     
-    shader_file.path = shader_path;
+    this->set_shader_src(shader_src, shader_type);
+}
+
+void Shader::set_shader_src(std::string shader_src, GLuint shader_type)
+{
+    ShaderFile shader_file;
+
+    shader_file.src = shader_src;
     shader_file.type = shader_type;
     
     m_shader_files.push_back(shader_file);
@@ -81,7 +87,7 @@ bool Shader::initialize()
     std::vector<GLuint> shaders;
     
     for (ShaderFile shader_file : m_shader_files)
-        shaders.push_back(compile_shader(shader_file.path, shader_file.type));
+        shaders.push_back(compile_shader(shader_file.src, shader_file.type));
     
     // Build program.
     m_program_id = glCreateProgram();
@@ -115,8 +121,8 @@ GLint Shader::get_uniform_location(std::string uniform)
 {
     GLint uniform_location = glGetUniformLocation(m_program_id, uniform.c_str());
     
-    if(uniform_location == -1)
-        throw std::invalid_argument( "Uniform \"" + uniform + "\" does not exist." );
+//    if(uniform_location == -1)
+//        throw std::invalid_argument( "Uniform \"" + uniform + "\" does not exist." );
     
     return uniform_location;
 }

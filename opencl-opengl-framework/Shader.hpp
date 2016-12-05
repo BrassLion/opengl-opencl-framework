@@ -23,7 +23,7 @@ private:
     GLuint m_program_id;
     
     struct ShaderFile {
-        std::string path;
+        std::string src;
         GLenum type;
     };
 
@@ -40,6 +40,7 @@ public:
     bool initialize();
     void delete_shader();
     void set_shader(std::string shader_path,  GLuint shader_type);
+    void set_shader_src(std::string shader_src,  GLuint shader_type);
     void bind_shader();
     
     void set_uniform(std::string uniform, glm::mat4 value);

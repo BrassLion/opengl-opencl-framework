@@ -9,6 +9,8 @@
 #ifndef Utility_hpp
 #define Utility_hpp
 
+#include "Mesh.hpp"
+
 #include <OpenCL/OpenCL.h>
 
 #include <stdio.h>
@@ -62,6 +64,72 @@ namespace utility
         void start();
         void split();
         void stop();
+    };
+    
+    class DebugAxis : public Mesh
+    {
+    private:
+        std::vector<GLfloat> m_vertices = {
+            // x axis.
+            0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+            1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+            // y axis.
+            0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+            // z axis.
+            0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+            0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f
+        };
+        
+        std::string m_vert_shader = "#version 330 core \
+         \
+        layout (location = 0) in vec3 position; \
+        layout (location = 1) in vec3 color; \
+         \
+        uniform mat4 mvpMatrix; \
+        uniform mat4 model_matrix; \
+         \
+        out vec3 frag_color; \
+         \
+        void main() \
+        { \
+            frag_color = color; \
+         \
+            gl_PointSize = 20.0; \
+            gl_Position = mvpMatrix * vec4(position, 1.0); \
+        }";
+
+        std::string m_frag_shader = "#version 330 core \
+         \
+        in vec3 frag_color; \
+         \
+        out vec4 color; \
+         \
+        void main() \
+        { \
+            color = vec4(frag_color, 1.0); \
+        }";
+        
+        std::shared_ptr<Shader> m_shader;
+        std::shared_ptr<Material> m_material;
+        
+    public:
+        void initialize() {
+            
+            this->Mesh::initialize(m_vertices, std::vector<unsigned int>({ 3, 3 }));
+            
+            m_shader = std::make_shared<Shader>();
+            
+            m_shader->set_shader_src(m_vert_shader, GL_VERTEX_SHADER);
+            m_shader->set_shader_src(m_frag_shader, GL_FRAGMENT_SHADER);
+            m_shader->initialize();
+            
+            m_material = std::make_shared<Material>(m_shader);
+            
+            this->set_rendering_mode(GL_LINES);
+            
+            this->set_material(m_material);
+        }
     };
     
     const char *get_opencl_error_string(cl_int error);
