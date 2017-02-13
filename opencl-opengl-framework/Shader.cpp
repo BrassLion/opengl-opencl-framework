@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdexcept>
 #include <assert.h>
+#include <algorithm>
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -77,6 +78,12 @@ void Shader::set_shader_src(std::string shader_src, GLuint shader_type)
 
     shader_file.src = shader_src;
     shader_file.type = shader_type;
+    
+    auto it = std::remove_if(m_shader_files.begin(), m_shader_files.end(), [&shader_file] (ShaderFile & file) {
+        return shader_file.type == file.type;
+    });
+    
+    m_shader_files.erase(it, m_shader_files.end());
     
     m_shader_files.push_back(shader_file);
 }
