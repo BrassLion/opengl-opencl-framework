@@ -21,7 +21,6 @@ class Scene {
 private:
     
     std::shared_ptr<Camera> m_camera;
-    std::shared_ptr<Object> m_camera_container;
     
     // Mouse variables.
     float lastX = 400, lastY = 300;
@@ -33,6 +32,7 @@ protected:
     std::unique_ptr<ShaderReloader> m_shader_reloader;
     std::unique_ptr<Renderer> m_renderer;
     std::shared_ptr<Object> m_root_node;
+    std::shared_ptr<Object> m_camera_container;
 
 public:
     
