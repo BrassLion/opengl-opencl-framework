@@ -148,8 +148,8 @@ void Scene::scroll_callback(double xoffset, double yoffset)
 {
     glm::vec3 new_camera_position = m_camera->get_position() + glm::vec3(0.0f, 0.0f, yoffset);
     
-    if (new_camera_position.z < 5.0f)
-        new_camera_position.z = 5.0f;
+    if (new_camera_position.z < 1.0f)
+        new_camera_position.z = 1.0f;
     
     if (new_camera_position.z > 200.0f)
         new_camera_position.z = 200.0f;
